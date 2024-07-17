@@ -45,7 +45,7 @@ public class Principal {
     private void initialize() {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Abrir en pantalla completa
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         frame.getContentPane().setLayout(new BorderLayout());
 
         JMenuBar menuBar = new JMenuBar();
@@ -57,8 +57,10 @@ public class Principal {
         JMenuItem AgregarComponentes = new JMenuItem("Agregar Componentes");
         AgregarComponentes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AgregarComponentes dialog = new AgregarComponentes();
-                dialog.setVisible(true);
+                AgregarComponentes AgregarComponentes = new AgregarComponentes();
+                AgregarComponentes.setModal(true);
+                AgregarComponentes.setLocationRelativeTo(null);
+                AgregarComponentes.setVisible(true);
             }
         });
         MenuComponentes.add(AgregarComponentes);
@@ -66,8 +68,10 @@ public class Principal {
         JMenuItem ListarComponentes = new JMenuItem("Listar Componentes");
         ListarComponentes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               // ListarComponentes dialog = new ListarComponentes();
-               // dialog.setVisible(true);
+               ListarComponentes ListarComponentes = new ListarComponentes();
+               ListarComponentes.setModal(true);
+               ListarComponentes.setLocationRelativeTo(null);
+               ListarComponentes.setVisible(true);
             }
         });
         MenuComponentes.add(ListarComponentes);

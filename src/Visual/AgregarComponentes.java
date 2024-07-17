@@ -124,7 +124,6 @@ public class AgregarComponentes extends JDialog {
             }
         });
 
-        // Panels for extra options initialization
         inicializarPanelesOpciones();
 
         JPanel buttonPane = new JPanel();

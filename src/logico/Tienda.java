@@ -60,9 +60,10 @@ public class Tienda {
         return false;
     }
 
-    public void mostrarInventario() {
-        for (Componente componente : inventario) {
-            componente.mostrarInformacion();
-        }
-    }
+
+	public ArrayList<Componente> getInventario() {
+		return inventario;
+	}
+    
+
 }
