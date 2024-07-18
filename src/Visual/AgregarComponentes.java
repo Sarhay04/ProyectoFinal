@@ -34,31 +34,33 @@ public class AgregarComponentes extends JDialog {
     private JTextField txtnumeroserie;
     private JSpinner spnCantidad;
     private JSpinner spnTipo;
+    private Componente componente;
 
-    // Panels for extra options
     private JPanel panelDiscoDuro;
     private JPanel panelMemoriaRAM;
     private JPanel panelMicroprocesador;
     private JPanel panelTarjetaMadre;
-
-    // Extra option fields
     private JTextField txtCapacidadDisco;
     private JTextField txtTipoConexionDisco;
-    
     private JTextField txtCantidadMemoriaRAM;
     private JTextField txtTipoMemoriaRAM;
-    
     private JTextField txtTipoConexionMicro;
     private JTextField txtVelocidadMicro;
-    
     private JTextField txtTipoConectorMicro;
     private JTextField txtTipoMemoriaTM;
     private JTextField txtConexionesDiscosTM;
 
-    /**
-     * Create the dialog.
-     */
-    public AgregarComponentes() {
+
+    public AgregarComponentes(Componente componenteSeleccionado) {
+    	setResizable(false);
+    	this.componente = componenteSeleccionado;
+    	
+    	if (componente == null) {
+            setTitle("Registrar Componente");
+        } else {
+            setTitle("Modificar Componente");
+        }
+    	
         setBounds(100, 100, 659, 312);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,7 +99,7 @@ public class AgregarComponentes extends JDialog {
         contentPanel.add(lblCantidad);
 
         spnCantidad = new JSpinner();
-        spnCantidad.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1)); // Valores de 1 a infinito
+        spnCantidad.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1)); 
         spnCantidad.setBounds(393, 48, 210, 25);
         contentPanel.add(spnCantidad);
 
@@ -130,7 +132,12 @@ public class AgregarComponentes extends JDialog {
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-        JButton btnRegistrar = new JButton("Registrar");
+        JButton btnRegistrar = new JButton();
+        if (componente == null) {
+            btnRegistrar.setText("Registrar");
+        } else {
+            btnRegistrar.setText("Modificar");
+        }
         btnRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (verificarCamposLlenos()) {
@@ -141,34 +148,59 @@ public class AgregarComponentes extends JDialog {
                     String numeroSerie = txtnumeroserie.getText();
                     String tipo = (String) spnTipo.getValue();
 
-                    Componente componente = null;
-                    switch (tipo) {
-                        case "Disco Duro":
-                            int capacidadDisco = Integer.parseInt(txtCapacidadDisco.getText());
-                            String tipoConexionDisco = txtTipoConexionDisco.getText();
-                            componente = new DiscoDuro(marca, modelo, precio, cantidad, numeroSerie, capacidadDisco, tipoConexionDisco);
-                            break;
-                        case "Memoria RAM":
-                            int cantidadMemoriaRAM = Integer.parseInt(txtCantidadMemoriaRAM.getText());
-                            String tipoMemoriaRAM = txtTipoMemoriaRAM.getText();
-                            componente = new MemoriaRAM(marca, modelo, precio, cantidad, numeroSerie, cantidadMemoriaRAM, tipoMemoriaRAM);
-                            break;
-                        case "Microprocesador":
-                            String tipoConexionMicro = txtTipoConexionMicro.getText();
-                            double velocidadMicro = Double.parseDouble(txtVelocidadMicro.getText());
-                            componente = new Microprocesador(marca, modelo, precio, cantidad, numeroSerie, tipoConexionMicro, velocidadMicro);
-                            break;
-                        case "Tarjeta Madre":
-                            String tipoConectorMicro = txtTipoConectorMicro.getText();
-                            String tipoMemoriaTM = txtTipoMemoriaTM.getText();
-                            ArrayList<String> conexionesDiscosTM = new ArrayList<>(Arrays.asList(txtConexionesDiscosTM.getText().split(",")));
-                            componente = new TarjetaMadre(marca, modelo, precio, cantidad, numeroSerie, tipoConectorMicro, tipoMemoriaTM, conexionesDiscosTM);
-                            break;
-                    }
-
-                    if (componente != null) {
+                    if (componente == null) {
+                        switch (tipo) {
+                            case "Disco Duro":
+                                int capacidadDisco = Integer.parseInt(txtCapacidadDisco.getText());
+                                String tipoConexionDisco = txtTipoConexionDisco.getText();
+                                componente = new DiscoDuro(marca, modelo, precio, cantidad, numeroSerie, capacidadDisco, tipoConexionDisco);
+                                break;
+                            case "Memoria RAM":
+                                int cantidadMemoriaRAM = Integer.parseInt(txtCantidadMemoriaRAM.getText());
+                                String tipoMemoriaRAM = txtTipoMemoriaRAM.getText();
+                                componente = new MemoriaRAM(marca, modelo, precio, cantidad, numeroSerie, cantidadMemoriaRAM, tipoMemoriaRAM);
+                                break;
+                            case "Microprocesador":
+                                String tipoConexionMicro = txtTipoConexionMicro.getText();
+                                double velocidadMicro = Double.parseDouble(txtVelocidadMicro.getText());
+                                componente = new Microprocesador(marca, modelo, precio, cantidad, numeroSerie, tipoConexionMicro, velocidadMicro);
+                                break;
+                            case "Tarjeta Madre":
+                                String tipoConectorMicro = txtTipoConectorMicro.getText();
+                                String tipoMemoriaTM = txtTipoMemoriaTM.getText();
+                                ArrayList<String> conexionesDiscosTM = new ArrayList<>(Arrays.asList(txtConexionesDiscosTM.getText().split(",")));
+                                componente = new TarjetaMadre(marca, modelo, precio, cantidad, numeroSerie, tipoConectorMicro, tipoMemoriaTM, conexionesDiscosTM);
+                                break;
+                        }
                         Tienda.getInstance().agregarComponente(componente);
                         JOptionPane.showMessageDialog(null, "Componente registrado exitosamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        componente.setMarca(marca);
+                        componente.setModelo(modelo);
+                        componente.setPrecio(precio);
+                        componente.setCantidadDisponible(cantidad);
+                        componente.setNumeroDeSerie(numeroSerie);
+                        
+                        if (componente instanceof DiscoDuro) {
+                            DiscoDuro disco = (DiscoDuro) componente;
+                            disco.setCapacidadAlmacenamiento(Integer.parseInt(txtCapacidadDisco.getText()));
+                            disco.setTipoConexion(txtTipoConexionDisco.getText());
+                        } else if (componente instanceof MemoriaRAM) {
+                            MemoriaRAM ram = (MemoriaRAM) componente;
+                            ram.setCantidadMemoria(Integer.parseInt(txtCantidadMemoriaRAM.getText()));
+                            ram.setTipoMemoria(txtTipoMemoriaRAM.getText());
+                        } else if (componente instanceof Microprocesador) {
+                            Microprocesador micro = (Microprocesador) componente;
+                            micro.setTipoConexion(txtTipoConexionMicro.getText());
+                            micro.setVelocidadProcesamiento(Double.parseDouble(txtVelocidadMicro.getText()));
+                        } else if (componente instanceof TarjetaMadre) {
+                            TarjetaMadre madre = (TarjetaMadre) componente;
+                            madre.setTipoConectorMicro(txtTipoConectorMicro.getText());
+                            madre.setTipoMemoriaRAM(txtTipoMemoriaTM.getText());
+                            madre.setConexionesDiscosDuros(new ArrayList<>(Arrays.asList(txtConexionesDiscosTM.getText().split(","))));
+                        }
+                        Tienda.getInstance().actualizarComponente(componente.getNumeroDeSerie(), componente);
+                        JOptionPane.showMessageDialog(null, "Componente modificado exitosamente.", "Modificación exitosa", JOptionPane.INFORMATION_MESSAGE);
                     }
                     dispose();
                 } else {
@@ -295,6 +327,10 @@ public class AgregarComponentes extends JDialog {
         txtConexionesDiscosTM.setBounds(460, 10, 140, 25);
         panelTarjetaMadre.add(txtConexionesDiscosTM);
         txtConexionesDiscosTM.setColumns(10);
+        
+        if (componente != null) {
+            llenarCampos();
+        }
     }
 
     private void mostrarPanelOpciones(String tipo) {
@@ -337,6 +373,36 @@ public class AgregarComponentes extends JDialog {
                 return !txtTipoConectorMicro.getText().isEmpty() && !txtTipoMemoriaTM.getText().isEmpty() && !txtConexionesDiscosTM.getText().isEmpty();
             default:
                 return false;
+        }
+    }
+    private void llenarCampos() {
+        txtmarca.setText(componente.getMarca());
+        txtmodelo.setText(componente.getModelo());
+        txtprecio.setText(String.valueOf(componente.getPrecio()));
+        spnCantidad.setValue(componente.getCantidadDisponible());
+        txtnumeroserie.setText(componente.getNumeroDeSerie());
+
+        if (componente instanceof DiscoDuro) {
+            spnTipo.setValue("Disco Duro");
+            DiscoDuro disco = (DiscoDuro) componente;
+            txtCapacidadDisco.setText(String.valueOf(disco.getCapacidadAlmacenamiento()));
+            txtTipoConexionDisco.setText(disco.getTipoConexion());
+        } else if (componente instanceof MemoriaRAM) {
+            spnTipo.setValue("Memoria RAM");
+            MemoriaRAM ram = (MemoriaRAM) componente;
+            txtCantidadMemoriaRAM.setText(String.valueOf(ram.getCantidadMemoria()));
+            txtTipoMemoriaRAM.setText(ram.getTipoMemoria());
+        } else if (componente instanceof Microprocesador) {
+            spnTipo.setValue("Microprocesador");
+            Microprocesador micro = (Microprocesador) componente;
+            txtTipoConexionMicro.setText(micro.getTipoConexion());
+            txtVelocidadMicro.setText(String.valueOf(micro.getVelocidadProcesamiento()));
+        } else if (componente instanceof TarjetaMadre) {
+            spnTipo.setValue("Tarjeta Madre");
+            TarjetaMadre madre = (TarjetaMadre) componente;
+            txtTipoConectorMicro.setText(madre.getTipoConectorMicro());
+            txtTipoMemoriaTM.setText(madre.getTipoMemoriaRAM());
+            txtConexionesDiscosTM.setText(String.join(",", madre.getConexionesDiscosDuros()));
         }
     }
 }

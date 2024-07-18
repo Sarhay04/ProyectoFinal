@@ -90,6 +90,17 @@ public class ListarComponentes extends JDialog {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
         btnModificar = new JButton("Modificar");
+        btnModificar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		if (componenteSeleccionado != null) {
+                    AgregarComponentes modificar = new AgregarComponentes(componenteSeleccionado);
+                    modificar.setModal(true);
+                    modificar.setVisible(true);
+                    ListarComponentesporTipo();
+                }
+        		
+        	}
+        });
         btnModificar.setEnabled(false);
         btnModificar.setActionCommand("OK");
         buttonPane.add(btnModificar);

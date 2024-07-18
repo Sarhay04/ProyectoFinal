@@ -57,7 +57,7 @@ public class Principal {
         JMenuItem AgregarComponentes = new JMenuItem("Agregar Componentes");
         AgregarComponentes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AgregarComponentes AgregarComponentes = new AgregarComponentes();
+                AgregarComponentes AgregarComponentes = new AgregarComponentes(null);
                 AgregarComponentes.setModal(true);
                 AgregarComponentes.setLocationRelativeTo(null);
                 AgregarComponentes.setVisible(true);
