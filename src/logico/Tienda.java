@@ -59,10 +59,36 @@ public class Tienda {
         }
         return false;
     }
+    
+    public void agregarCliente(Cliente clt)
+    {
+    	misClientes.add(clt);
+    	return;
+    }
 
 
 	public ArrayList<Componente> getInventario() {
 		return inventario;
+	}
+
+	public ArrayList<Cliente> getMisClientes() {
+		return misClientes;
+	}
+
+	public void setMisClientes(ArrayList<Cliente> misClientes) {
+		this.misClientes = misClientes;
+	}
+
+	public ArrayList<Venta> getMisVentas() {
+		return misVentas;
+	}
+
+	public void setMisVentas(ArrayList<Venta> misVentas) {
+		this.misVentas = misVentas;
+	}
+
+	public void setInventario(ArrayList<Componente> inventario) {
+		this.inventario = inventario;
 	}
     
 
