@@ -77,6 +77,24 @@ public class Tienda {
     	}
     	return null;
     }
+    
+    public boolean checkClienteDelete(Cliente clt)
+    {
+    	for(Venta aux: misVentas)
+    	{
+    		if(aux.getMiCliente().equals(clt));
+    		{
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    public void borrarCliente(Cliente clt)
+    {
+    	misClientes.remove(clt);
+    	return;
+    }
 
 
 	public ArrayList<Componente> getInventario() {

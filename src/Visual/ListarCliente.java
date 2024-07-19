@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -32,6 +33,7 @@ public class ListarCliente extends JDialog {
 	private JTable table;
 	private JButton btnModificar;
 	private Cliente clt = null;
+	private JButton btnEliminar;
 
 	/**
 	 * Launch the application.
@@ -74,6 +76,7 @@ public class ListarCliente extends JDialog {
 				int index = table.getSelectedRow();
 				if (index >= 0) {
 					btnModificar.setEnabled(true);
+					btnEliminar.setEnabled(true);
 					clt = Tienda.getInstance().getClienteByCedula(table.getValueAt(index, 0).toString());
 				}
 
@@ -92,13 +95,37 @@ public class ListarCliente extends JDialog {
 					RegCliente modificar = new RegCliente(clt);
 					modificar.setModal(true);
 					modificar.setVisible(true);
+					btnEliminar.setEnabled(false);
+					btnModificar.setEnabled(false);
 					cargarClientes();
 				}
 			});
+			
+			btnEliminar = new JButton("Eliminar");
+			btnEliminar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(clt != null && Tienda.getInstance().checkClienteDelete(clt))
+					{
+						Tienda.getInstance().borrarCliente(clt);
+						btnEliminar.setEnabled(false);
+						btnModificar.setEnabled(false);
+						cargarClientes();
+						JOptionPane.showMessageDialog(null, "El Cliente ha sido eliminado!", "Eliminacion",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			});
+			btnEliminar.setEnabled(false);
+			buttonPane.add(btnEliminar);
 			btnModificar.setEnabled(false);
 			buttonPane.add(btnModificar);
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
