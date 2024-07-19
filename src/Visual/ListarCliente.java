@@ -106,12 +106,19 @@ public class ListarCliente extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if(clt != null && Tienda.getInstance().checkClienteDelete(clt))
 					{
-						Tienda.getInstance().borrarCliente(clt);
-						btnEliminar.setEnabled(false);
-						btnModificar.setEnabled(false);
-						cargarClientes();
-						JOptionPane.showMessageDialog(null, "El Cliente ha sido eliminado!", "Eliminacion",
-								JOptionPane.INFORMATION_MESSAGE);
+						int option = JOptionPane.showConfirmDialog(null,
+	                             "¿Estás seguro(a) que desea eliminar el Cliente de cedula: "
+	                                     + clt.getCedula() + "?",
+	                             "Confirmación", JOptionPane.OK_CANCEL_OPTION);
+	                     if (option == JOptionPane.OK_OPTION) {
+	                    	 Tienda.getInstance().borrarCliente(clt);
+	 						btnEliminar.setEnabled(false);
+	 						btnModificar.setEnabled(false);
+	 						cargarClientes();
+	 						JOptionPane.showMessageDialog(null, "El Cliente ha sido eliminado!", "Eliminacion",
+	 								JOptionPane.INFORMATION_MESSAGE);
+	                     }
+						
 					}
 				}
 			});
