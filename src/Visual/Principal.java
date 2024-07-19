@@ -76,6 +76,31 @@ public class Principal {
         });
         MenuComponentes.add(ListarComponentes);
         
+        JMenu mnClientes = new JMenu("Clientes");
+        menuBar.add(mnClientes);
+        
+        JMenuItem AgregarClt = new JMenuItem("Agregar Cliente");
+        AgregarClt.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RegCliente regclt = new RegCliente(null);
+        		regclt.setModal(true);
+        		regclt.setLocationRelativeTo(null);
+        		regclt.setVisible(true);
+        	}
+        });
+        mnClientes.add(AgregarClt);
+        
+        JMenuItem ListarClt = new JMenuItem("Listar Clientes");
+        ListarClt.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ListarCliente listclt = new ListarCliente();
+        		listclt.setModal(true);
+        		listclt.setLocationRelativeTo(null);
+        		listclt.setVisible(true);
+        	}
+        });
+        mnClientes.add(ListarClt);
+        
         frame.validate();
     }
 }

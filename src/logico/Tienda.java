@@ -65,6 +65,18 @@ public class Tienda {
     	misClientes.add(clt);
     	return;
     }
+    
+    public Cliente getClienteByCedula(String Cedula)
+    {
+    	for(Cliente clt: misClientes)
+    	{
+    		if(clt.getCedula().equalsIgnoreCase(Cedula))
+    		{
+    			return clt;
+    		}
+    	}
+    	return null;
+    }
 
 
 	public ArrayList<Componente> getInventario() {
