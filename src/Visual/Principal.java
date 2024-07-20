@@ -68,7 +68,7 @@ public class Principal {
         JMenuItem ListarComponentes = new JMenuItem("Listar Componentes");
         ListarComponentes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               ListarComponentes ListarComponentes = new ListarComponentes();
+               ListarComponentes ListarComponentes = new ListarComponentes(false);
                ListarComponentes.setModal(true);
                ListarComponentes.setLocationRelativeTo(null);
                ListarComponentes.setVisible(true);
@@ -100,6 +100,21 @@ public class Principal {
         	}
         });
         mnClientes.add(ListarClt);
+        
+        JMenu mnNewMenu = new JMenu("Ventas");
+        menuBar.add(mnNewMenu);
+        
+        JMenuItem mntmNewMenuItem = new JMenuItem("Realizar Venta");
+        mntmNewMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RealizarVenta.misVentas.clear();
+        		RealizarVenta vt = new RealizarVenta();
+        		vt.setModal(true);
+        		vt.setLocationRelativeTo(null);
+        		vt.setVisible(true);
+        	}
+        });
+        mnNewMenu.add(mntmNewMenuItem);
         
         frame.validate();
     }

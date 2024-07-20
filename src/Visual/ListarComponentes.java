@@ -34,11 +34,15 @@ public class ListarComponentes extends JDialog {
     private JButton btnEliminar;
     private JButton cancelButton;
     private Componente componenteSeleccionado;
+    private boolean Mode;
 
     /**
      * Create the dialog.
      */
-    public ListarComponentes() {
+    
+    public ListarComponentes(boolean mode) {
+    	
+    	Mode = mode;
         setTitle("Listar Componentes");
         setBounds(100, 100, 831, 532);
         getContentPane().setLayout(new BorderLayout());
@@ -109,6 +113,11 @@ public class ListarComponentes extends JDialog {
         btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		 if(Mode)
+        		 {
+        			 RealizarVenta.getProducto(componenteSeleccionado);
+        			 return;
+        		 }
         		 if (componenteSeleccionado != null) {
                      int option = JOptionPane.showConfirmDialog(null,
                              "¿Estás seguro(a) que desea eliminar el componente con número de serie: "
@@ -137,6 +146,17 @@ public class ListarComponentes extends JDialog {
         buttonPane.add(cancelButton);
 
         ListarComponentesporTipo();
+        if(mode)
+        {
+            ListMode();
+        }
+
+    }
+    
+    private void ListMode()
+    {
+    	btnModificar.setVisible(false);
+    	btnEliminar.setText("Añadir");
     }
 
     private void ListarComponentesporTipo() {

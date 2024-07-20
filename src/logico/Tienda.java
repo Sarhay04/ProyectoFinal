@@ -66,6 +66,24 @@ public class Tienda {
     	return;
     }
     
+    public void agregarVenta(Venta vta)
+    {
+    	misVentas.add(vta);
+    	Venta.codigoVenta++;
+    	for(VentaComponente aux: vta.getMisComps())
+    	{
+    		for(Componente aux2: inventario)
+    		{
+    			if(aux.getComp().equals(aux2))
+    			{
+    				aux2.setCantidadDisponible(aux2.getCantidadDisponible() - aux.getQty());
+    			}
+    		}
+    	}
+    	return;
+    }
+    
+    
     public Cliente getClienteByCedula(String Cedula)
     {
     	for(Cliente clt: misClientes)
