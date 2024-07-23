@@ -1,6 +1,9 @@
 package logico;
 
-public class VentaComponente {
+import java.io.Serializable;
+
+public class VentaComponente implements Serializable {
+    private static final long serialVersionUID = 1L;
 
 	private Componente comp;
 	private int qty;

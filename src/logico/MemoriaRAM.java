@@ -1,7 +1,11 @@
 package logico;
 public class MemoriaRAM extends Componente {
 	
-    private int cantidadMemoria;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int cantidadMemoria;
     private String tipoMemoria;
 
     public MemoriaRAM(String nombre, String marca, String modelo, double precio, int cantidadDisponible,

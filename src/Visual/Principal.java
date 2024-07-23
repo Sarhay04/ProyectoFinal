@@ -9,6 +9,14 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import logico.Tienda;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Principal {
 
@@ -31,19 +39,20 @@ public class Principal {
         });
     }
 
-    /**
-     * Create the application.
-     */
+
     public Principal() {
-        tienda = Tienda.getInstance();
+        tienda = cargarTienda();
+        Tienda.tienda = tienda; 
         initialize();
     }
-
-    /**
-     * Initialize the contents of the frame.
-     */
     private void initialize() {
         frame = new JFrame();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                guardarTienda();
+            }
+        });
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         frame.getContentPane().setLayout(new BorderLayout());
@@ -128,5 +137,60 @@ public class Principal {
         mnNewMenu.add(mntmNewMenuItem_1);
         
         frame.validate();
+    }
+
+    private Tienda cargarTienda() {
+        FileInputStream tiendaInput = null;
+        ObjectInputStream tiendaRead = null;
+        Tienda tienda = null;
+
+        try {
+            tiendaInput = new FileInputStream("Tienda.dat");
+            tiendaRead = new ObjectInputStream(tiendaInput);
+            tienda = (Tienda) tiendaRead.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado, se creara una nueva instancia de Tienda.");
+            tienda = Tienda.getInstance(); 
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (tiendaRead != null) {
+                    tiendaRead.close();
+                }
+                if (tiendaInput != null) {
+                    tiendaInput.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return tienda;
+    }
+
+    private void guardarTienda() {
+        FileOutputStream tienda2 = null;
+        ObjectOutputStream tiendaWrite = null;
+
+        try {
+            tienda2 = new FileOutputStream("Tienda.dat");
+            tiendaWrite = new ObjectOutputStream(tienda2);
+            tiendaWrite.writeObject(Tienda.getInstance());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (tiendaWrite != null) {
+                    tiendaWrite.close();
+                }
+                if (tienda2 != null) {
+                    tienda2.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

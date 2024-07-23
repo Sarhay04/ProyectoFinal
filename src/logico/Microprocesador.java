@@ -1,6 +1,10 @@
 package logico;
 public class Microprocesador extends Componente {
-    private String tipoConexion;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String tipoConexion;
     private double velocidadProcesamiento;
 
     public Microprocesador(String nombre, String marca, String modelo, double precio, int cantidadDisponible,

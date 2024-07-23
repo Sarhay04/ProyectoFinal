@@ -62,7 +62,7 @@ public class AgregarComponentes extends JDialog {
             setTitle("Modificar Componente");
         }
     	
-        setBounds(100, 100, 659, 570);
+        setBounds(100, 100, 659, 352);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -227,7 +227,7 @@ public class AgregarComponentes extends JDialog {
     private void inicializarPanelesOpciones() {
 
         panelTarjetaMadre = new JPanel();
-        panelTarjetaMadre.setBounds(10, 384, 610, 90);
+        panelTarjetaMadre.setBounds(10, 173, 610, 90);
         panelTarjetaMadre.setVisible(false);
         contentPanel.add(panelTarjetaMadre);
         panelTarjetaMadre.setLayout(null);
@@ -293,7 +293,7 @@ public class AgregarComponentes extends JDialog {
                                                                                                                                                                 txtVelocidadMicro.setColumns(10);
                                                                                                                                                                 
                                                                                                                                                                         panelMemoriaRAM = new JPanel();
-                                                                                                                                                                        panelMemoriaRAM.setBounds(10, 243, 610, 60);
+                                                                                                                                                                        panelMemoriaRAM.setBounds(10, 173, 610, 60);
                                                                                                                                                                         contentPanel.add(panelMemoriaRAM);
                                                                                                                                                                         panelMemoriaRAM.setVisible(false);
                                                                                                                                                                         panelMemoriaRAM.setLayout(null);
@@ -316,7 +316,7 @@ public class AgregarComponentes extends JDialog {
                                                                                                                                                                                                         panelMemoriaRAM.add(txtTipoMemoriaRAM);
                                                                                                                                                                                                         txtTipoMemoriaRAM.setColumns(10);
                                                                                                                                                                                                         panelDiscoDuro = new JPanel();
-                                                                                                                                                                                                        panelDiscoDuro.setBounds(10, 313, 610, 60);
+                                                                                                                                                                                                        panelDiscoDuro.setBounds(10, 173, 610, 60);
                                                                                                                                                                                                         contentPanel.add(panelDiscoDuro);
                                                                                                                                                                                                         panelDiscoDuro.setVisible(false);
                                                                                                                                                                                                         panelDiscoDuro.setLayout(null);

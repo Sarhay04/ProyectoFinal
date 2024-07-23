@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 public class TarjetaMadre extends Componente {
 
-	 private String tipoConectorMicro;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String tipoConectorMicro;
 	    private String tipoMemoriaRAM;
 	    private ArrayList<String> conexionesDiscosDuros;
 

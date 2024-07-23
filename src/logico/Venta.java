@@ -2,8 +2,10 @@ package logico;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Venta {
+public class Venta implements Serializable {
+    private static final long serialVersionUID = 1L;
 	
 	private String codigo;
 	private ArrayList<VentaComponente> misComps;
