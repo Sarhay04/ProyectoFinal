@@ -164,16 +164,16 @@ public class ListarComponentes extends JDialog {
         ArrayList<Componente> componentes = Tienda.getInstance().getInventario();
 
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Marca");
+        model.addColumn("Nombre");
         model.addColumn("Modelo");
         model.addColumn("Precio");
         model.addColumn("Cantidad");
-        model.addColumn("Número de Serie");
+        model.addColumn("N-Serie");
 
         if (tipoSeleccionado.equals("Todos")) {
             for (Componente componente : componentes) {
                 model.addRow(new Object[] {
-                    componente.getMarca(),
+                    componente.getNombre(),
                     componente.getModelo(),
                     componente.getPrecio(),
                     componente.getCantidadDisponible(),
@@ -190,7 +190,7 @@ public class ListarComponentes extends JDialog {
                         if (componente instanceof DiscoDuro) {
                             DiscoDuro disco = (DiscoDuro) componente;
                             model.addRow(new Object[] {
-                                disco.getMarca(),
+                                disco.getNombre(),
                                 disco.getModelo(),
                                 disco.getPrecio(),
                                 disco.getCantidadDisponible(),
@@ -208,7 +208,7 @@ public class ListarComponentes extends JDialog {
                         if (componente instanceof MemoriaRAM) {
                             MemoriaRAM ram = (MemoriaRAM) componente;
                             model.addRow(new Object[] {
-                                ram.getMarca(),
+                                ram.getNombre(),
                                 ram.getModelo(),
                                 ram.getPrecio(),
                                 ram.getCantidadDisponible(),
@@ -226,7 +226,7 @@ public class ListarComponentes extends JDialog {
                         if (componente instanceof Microprocesador) {
                             Microprocesador micro = (Microprocesador) componente;
                             model.addRow(new Object[] {
-                                micro.getMarca(),
+                                micro.getNombre(),
                                 micro.getModelo(),
                                 micro.getPrecio(),
                                 micro.getCantidadDisponible(),
@@ -245,7 +245,7 @@ public class ListarComponentes extends JDialog {
                         if (componente instanceof TarjetaMadre) {
                             TarjetaMadre madre = (TarjetaMadre) componente;
                             model.addRow(new Object[] {
-                                madre.getMarca(),
+                                madre.getNombre(),
                                 madre.getModelo(),
                                 madre.getPrecio(),
                                 madre.getCantidadDisponible(),

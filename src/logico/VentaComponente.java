@@ -10,7 +10,10 @@ public class VentaComponente {
 		this.comp = comp;
 		this.qty = qty;
 	}
-
+	
+	public double getSubtotal() {
+        return comp.getPrecio() * qty;
+    }
 
 	public Componente getComp() {
 		return comp;
@@ -27,5 +30,13 @@ public class VentaComponente {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
+	
+	public VentaComponente clone() {
+        return new VentaComponente(this.comp, this.qty);
+    }
+	
+	public String getDetalle() {
+        return qty + " x " + comp.getNombre() + " @ $" + String.format("%.2f", getSubtotal());
+    }
 
 }

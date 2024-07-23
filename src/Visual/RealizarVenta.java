@@ -99,7 +99,7 @@ public class RealizarVenta extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						if(!misVentas.isEmpty() && clt != null)
 						{
-							Venta vta = new Venta("VENTA-"+Venta.codigoVenta, misVentas, clt, total, fecha);
+							Venta vta = new Venta("VENTA-"+Venta.codigoVenta, new ArrayList<>(misVentas), clt, total, fecha);
 							Tienda.getInstance().agregarVenta(vta);
 							clearAll();
 							JOptionPane.showMessageDialog(null, "La venta ha sido realizada!", "",

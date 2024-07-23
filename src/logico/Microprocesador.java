@@ -3,12 +3,13 @@ public class Microprocesador extends Componente {
     private String tipoConexion;
     private double velocidadProcesamiento;
 
-    public Microprocesador(String marca, String modelo, double precio, int cantidadDisponible, String numeroDeSerie,
-                           String tipoConexion, double velocidadProcesamiento) {
-        super(marca, modelo, precio, cantidadDisponible, numeroDeSerie);
-        this.tipoConexion = tipoConexion;
-        this.velocidadProcesamiento = velocidadProcesamiento;
-    }
+    public Microprocesador(String nombre, String marca, String modelo, double precio, int cantidadDisponible,
+			String numeroDeSerie, String tipoConexion, double velocidadProcesamiento) {
+		super(nombre, marca, modelo, precio, cantidadDisponible, numeroDeSerie);
+		this.tipoConexion = tipoConexion;
+		this.velocidadProcesamiento = velocidadProcesamiento;
+	}
+
 
     @Override
     public void mostrarInformacion() {

@@ -66,6 +66,18 @@ public class Tienda {
     	return;
     }
     
+    public Venta getVentaByCodigo(String codigo)
+    {
+    	for(Venta vta: misVentas)
+    	{
+    		if(vta.getCodigo().equals(codigo))
+    		{
+    			return vta;
+    		}
+    	}
+    	return null;
+    }
+    
     public void agregarVenta(Venta vta)
     {
     	misVentas.add(vta);

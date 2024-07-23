@@ -2,6 +2,9 @@ package logico;
 
 public abstract class Componente {
 	
+	
+
+	protected String nombre;
 	protected String marca;
     protected String modelo;
     protected double precio;
@@ -9,13 +12,16 @@ public abstract class Componente {
     protected String numeroDeSerie;
 
     // Constructor
-    public Componente(String marca, String modelo, double precio, int cantidadDisponible, String numeroDeSerie) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.precio = precio;
-        this.cantidadDisponible = cantidadDisponible;
-        this.numeroDeSerie = numeroDeSerie;
-    }
+    public Componente(String nombre, String marca, String modelo, double precio, int cantidadDisponible,
+			String numeroDeSerie) {
+		super();
+		this.nombre = nombre;
+		this.marca = marca;
+		this.modelo = modelo;
+		this.precio = precio;
+		this.cantidadDisponible = cantidadDisponible;
+		this.numeroDeSerie = numeroDeSerie;
+	}
 
     // Getters y Setters
     public String getMarca() {
@@ -59,6 +65,14 @@ public abstract class Componente {
     }
 
     public abstract void mostrarInformacion();
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 
 }

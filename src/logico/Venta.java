@@ -15,7 +15,10 @@ public class Venta {
 	public Venta(String codigo, ArrayList<VentaComponente> misComps, Cliente miCliente, double total, LocalDate fecha) {
 		super();
 		this.codigo = codigo;
-		this.misComps = misComps;
+		this.misComps = new ArrayList<>();
+	        for (VentaComponente vc : new ArrayList<>(misComps)) {
+	            this.misComps.add(vc.clone());
+	        }
 		this.miCliente = miCliente;
 		this.total = total;
 		this.fecha = fecha;
@@ -25,6 +28,23 @@ public class Venta {
 		VentaComponente ventaComp = new VentaComponente(componente, cantidad);
         misComps.add(ventaComp);
         total += componente.precio * cantidad;
+    }
+	
+	public String generarFactura() {
+        StringBuilder factura = new StringBuilder();
+        factura.append("Código de Venta: ").append(codigo).append("\n");
+        factura.append("Fecha: ").append(fecha).append("\n\n");
+        factura.append("Cliente: ").append(miCliente.getNombre()).append("\n\n");
+        factura.append("Detalles de la Venta:\n");
+        factura.append(misComps.size());
+
+        for (VentaComponente vc : misComps) {
+        	factura.append(vc.getDetalle()).append("\n");
+        }
+
+        factura.append("\nTotal: $").append(String.format("%.2f", total)).append("\n");
+
+        return factura.toString();
     }
 	
 	public String getCodigo() {

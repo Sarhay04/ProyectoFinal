@@ -1,15 +1,15 @@
 package logico;
 public class DiscoDuro extends Componente {
 	
-    private int capacidadAlmacenamiento;
+	private int capacidadAlmacenamiento;
     private String tipoConexion;
 
-    public DiscoDuro(String marca, String modelo, double precio, int cantidadDisponible, String numeroDeSerie,
-                     int capacidadAlmacenamiento, String tipoConexion) {
-        super(marca, modelo, precio, cantidadDisponible, numeroDeSerie);
-        this.capacidadAlmacenamiento = capacidadAlmacenamiento;
-        this.tipoConexion = tipoConexion;
-    }
+    public DiscoDuro(String nombre, String marca, String modelo, double precio, int cantidadDisponible,
+			String numeroDeSerie, int capacidadAlmacenamiento, String tipoConexion) {
+		super(nombre, marca, modelo, precio, cantidadDisponible, numeroDeSerie);
+		this.capacidadAlmacenamiento = capacidadAlmacenamiento;
+		this.tipoConexion = tipoConexion;
+	}
 
     @Override
     public void mostrarInformacion() {

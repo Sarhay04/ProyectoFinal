@@ -4,12 +4,12 @@ public class MemoriaRAM extends Componente {
     private int cantidadMemoria;
     private String tipoMemoria;
 
-    public MemoriaRAM(String marca, String modelo, double precio, int cantidadDisponible, String numeroDeSerie,
-                      int cantidadMemoria, String tipoMemoria) {
-        super(marca, modelo, precio, cantidadDisponible, numeroDeSerie);
-        this.cantidadMemoria = cantidadMemoria;
-        this.tipoMemoria = tipoMemoria;
-    }
+    public MemoriaRAM(String nombre, String marca, String modelo, double precio, int cantidadDisponible,
+			String numeroDeSerie, int cantidadMemoria, String tipoMemoria) {
+		super(nombre, marca, modelo, precio, cantidadDisponible, numeroDeSerie);
+		this.cantidadMemoria = cantidadMemoria;
+		this.tipoMemoria = tipoMemoria;
+	}
 
     @Override
     public void mostrarInformacion() {

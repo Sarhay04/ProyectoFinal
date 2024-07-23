@@ -49,6 +49,7 @@ public class AgregarComponentes extends JDialog {
     private JTextField txtTipoConectorMicro;
     private JTextField txtTipoMemoriaTM;
     private JTextField txtConexionesDiscosTM;
+    private JTextField txtNombre;
 
 
     public AgregarComponentes(Componente componenteSeleccionado) {
@@ -61,64 +62,64 @@ public class AgregarComponentes extends JDialog {
             setTitle("Modificar Componente");
         }
     	
-        setBounds(100, 100, 659, 312);
+        setBounds(100, 100, 659, 570);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
 
         JLabel lblMarca = new JLabel("Marca:");
-        lblMarca.setBounds(10, 10, 80, 25);
+        lblMarca.setBounds(321, 14, 80, 25);
         contentPanel.add(lblMarca);
 
         txtmarca = new JTextField();
-        txtmarca.setBounds(77, 10, 210, 25);
+        txtmarca.setBounds(393, 14, 210, 25);
         contentPanel.add(txtmarca);
         txtmarca.setColumns(10);
 
         JLabel lblModelo = new JLabel("Modelo:");
-        lblModelo.setBounds(321, 10, 80, 25);
+        lblModelo.setBounds(10, 52, 80, 25);
         contentPanel.add(lblModelo);
 
         txtmodelo = new JTextField();
-        txtmodelo.setBounds(393, 10, 210, 25);
+        txtmodelo.setBounds(77, 52, 210, 25);
         contentPanel.add(txtmodelo);
         txtmodelo.setColumns(10);
 
         JLabel lblPrecio = new JLabel("Precio:");
-        lblPrecio.setBounds(10, 48, 80, 25);
+        lblPrecio.setBounds(326, 52, 80, 25);
         contentPanel.add(lblPrecio);
 
         txtprecio = new JTextField();
-        txtprecio.setBounds(77, 48, 210, 25);
+        txtprecio.setBounds(393, 52, 210, 25);
         contentPanel.add(txtprecio);
         txtprecio.setColumns(10);
 
         JLabel lblCantidad = new JLabel("Cantidad:");
-        lblCantidad.setBounds(321, 48, 80, 25);
+        lblCantidad.setBounds(319, 93, 80, 25);
         contentPanel.add(lblCantidad);
 
         spnCantidad = new JSpinner();
         spnCantidad.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1)); 
-        spnCantidad.setBounds(393, 48, 210, 25);
+        spnCantidad.setBounds(391, 93, 210, 25);
         contentPanel.add(spnCantidad);
 
         JLabel lblNumeroSerie = new JLabel("Número de Serie:");
-        lblNumeroSerie.setBounds(10, 94, 116, 25);
+        lblNumeroSerie.setBounds(8, 93, 116, 25);
         contentPanel.add(lblNumeroSerie);
 
         txtnumeroserie = new JTextField();
-        txtnumeroserie.setBounds(122, 94, 165, 25);
+        txtnumeroserie.setBounds(122, 93, 165, 25);
         contentPanel.add(txtnumeroserie);
         txtnumeroserie.setColumns(10);
         
         JLabel lblTipo = new JLabel("Tipo:");
-        lblTipo.setBounds(321, 94, 80, 25);
+        lblTipo.setBounds(10, 138, 80, 25);
         contentPanel.add(lblTipo);
         
         spnTipo = new JSpinner();
         spnTipo.setModel(new SpinnerListModel(new String[] {"<Seleccionar>", "Disco Duro", "Memoria RAM", "Microprocesador", "Tarjeta Madre"}));
-        spnTipo.setBounds(393, 94, 210, 25);
+        spnTipo.setBounds(77, 133, 210, 25);
         contentPanel.add(spnTipo);
         spnTipo.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -143,6 +144,7 @@ public class AgregarComponentes extends JDialog {
                 if (verificarCamposLlenos()) {
                     String marca = txtmarca.getText();
                     String modelo = txtmodelo.getText();
+                    String nombre = txtNombre.getText();
                     double precio = Double.parseDouble(txtprecio.getText());
                     int cantidad = (int) spnCantidad.getValue();
                     String numeroSerie = txtnumeroserie.getText();
@@ -153,23 +155,23 @@ public class AgregarComponentes extends JDialog {
                             case "Disco Duro":
                                 int capacidadDisco = Integer.parseInt(txtCapacidadDisco.getText());
                                 String tipoConexionDisco = txtTipoConexionDisco.getText();
-                                componente = new DiscoDuro(marca, modelo, precio, cantidad, numeroSerie, capacidadDisco, tipoConexionDisco);
+                                componente = new DiscoDuro(nombre, marca, modelo, precio, cantidad, numeroSerie, capacidadDisco, tipoConexionDisco);
                                 break;
                             case "Memoria RAM":
                                 int cantidadMemoriaRAM = Integer.parseInt(txtCantidadMemoriaRAM.getText());
                                 String tipoMemoriaRAM = txtTipoMemoriaRAM.getText();
-                                componente = new MemoriaRAM(marca, modelo, precio, cantidad, numeroSerie, cantidadMemoriaRAM, tipoMemoriaRAM);
+                                componente = new MemoriaRAM(nombre, marca, modelo, precio, cantidad, numeroSerie, cantidadMemoriaRAM, tipoMemoriaRAM);
                                 break;
                             case "Microprocesador":
                                 String tipoConexionMicro = txtTipoConexionMicro.getText();
                                 double velocidadMicro = Double.parseDouble(txtVelocidadMicro.getText());
-                                componente = new Microprocesador(marca, modelo, precio, cantidad, numeroSerie, tipoConexionMicro, velocidadMicro);
+                                componente = new Microprocesador(nombre, marca, modelo, precio, cantidad, numeroSerie, tipoConexionMicro, velocidadMicro);
                                 break;
                             case "Tarjeta Madre":
                                 String tipoConectorMicro = txtTipoConectorMicro.getText();
                                 String tipoMemoriaTM = txtTipoMemoriaTM.getText();
                                 ArrayList<String> conexionesDiscosTM = new ArrayList<>(Arrays.asList(txtConexionesDiscosTM.getText().split(",")));
-                                componente = new TarjetaMadre(marca, modelo, precio, cantidad, numeroSerie, tipoConectorMicro, tipoMemoriaTM, conexionesDiscosTM);
+                                componente = new TarjetaMadre(nombre, marca, modelo, precio, cantidad, numeroSerie, tipoConectorMicro, tipoMemoriaTM, conexionesDiscosTM);
                                 break;
                         }
                         Tienda.getInstance().agregarComponente(componente);
@@ -223,80 +225,9 @@ public class AgregarComponentes extends JDialog {
     }
 
     private void inicializarPanelesOpciones() {
-        panelDiscoDuro = new JPanel();
-        panelDiscoDuro.setBounds(10, 130, 610, 60);
-        panelDiscoDuro.setVisible(false);
-        contentPanel.add(panelDiscoDuro);
-        panelDiscoDuro.setLayout(null);
-
-        JLabel lblCapacidadDisco = new JLabel("Capacidad (GB):");
-        lblCapacidadDisco.setBounds(10, 10, 120, 25);
-        panelDiscoDuro.add(lblCapacidadDisco);
-
-        txtCapacidadDisco = new JTextField();
-        txtCapacidadDisco.setBounds(140, 10, 100, 25);
-        panelDiscoDuro.add(txtCapacidadDisco);
-        txtCapacidadDisco.setColumns(10);
-
-        JLabel lblTipoConexionDisco = new JLabel("Tipo de Conexión:");
-        lblTipoConexionDisco.setBounds(270, 10, 120, 25);
-        panelDiscoDuro.add(lblTipoConexionDisco);
-
-        txtTipoConexionDisco = new JTextField();
-        txtTipoConexionDisco.setBounds(400, 10, 100, 25);
-        panelDiscoDuro.add(txtTipoConexionDisco);
-        txtTipoConexionDisco.setColumns(10);
-
-        panelMemoriaRAM = new JPanel();
-        panelMemoriaRAM.setBounds(10, 130, 610, 60);
-        panelMemoriaRAM.setVisible(false);
-        contentPanel.add(panelMemoriaRAM);
-        panelMemoriaRAM.setLayout(null);
-
-        JLabel lblCantidadMemoriaRAM = new JLabel("Cantidad de Memoria (GB):");
-        lblCantidadMemoriaRAM.setBounds(10, 10, 160, 25);
-        panelMemoriaRAM.add(lblCantidadMemoriaRAM);
-
-        txtCantidadMemoriaRAM = new JTextField();
-        txtCantidadMemoriaRAM.setBounds(180, 10, 100, 25);
-        panelMemoriaRAM.add(txtCantidadMemoriaRAM);
-        txtCantidadMemoriaRAM.setColumns(10);
-
-        JLabel lblTipoMemoriaRAM = new JLabel("Tipo de Memoria:");
-        lblTipoMemoriaRAM.setBounds(300, 10, 100, 25);
-        panelMemoriaRAM.add(lblTipoMemoriaRAM);
-
-        txtTipoMemoriaRAM = new JTextField();
-        txtTipoMemoriaRAM.setBounds(410, 10, 100, 25);
-        panelMemoriaRAM.add(txtTipoMemoriaRAM);
-        txtTipoMemoriaRAM.setColumns(10);
-
-        panelMicroprocesador = new JPanel();
-        panelMicroprocesador.setBounds(10, 130, 610, 60);
-        panelMicroprocesador.setVisible(false);
-        contentPanel.add(panelMicroprocesador);
-        panelMicroprocesador.setLayout(null);
-
-        JLabel lblTipoConexionMicro = new JLabel("Tipo de Conexión:");
-        lblTipoConexionMicro.setBounds(10, 10, 120, 25);
-        panelMicroprocesador.add(lblTipoConexionMicro);
-
-        txtTipoConexionMicro = new JTextField();
-        txtTipoConexionMicro.setBounds(140, 10, 100, 25);
-        panelMicroprocesador.add(txtTipoConexionMicro);
-        txtTipoConexionMicro.setColumns(10);
-
-        JLabel lblVelocidadMicro = new JLabel("Velocidad (GHz):");
-        lblVelocidadMicro.setBounds(270, 10, 120, 25);
-        panelMicroprocesador.add(lblVelocidadMicro);
-
-        txtVelocidadMicro = new JTextField();
-        txtVelocidadMicro.setBounds(400, 10, 100, 25);
-        panelMicroprocesador.add(txtVelocidadMicro);
-        txtVelocidadMicro.setColumns(10);
 
         panelTarjetaMadre = new JPanel();
-        panelTarjetaMadre.setBounds(10, 130, 610, 90);
+        panelTarjetaMadre.setBounds(10, 384, 610, 90);
         panelTarjetaMadre.setVisible(false);
         contentPanel.add(panelTarjetaMadre);
         panelTarjetaMadre.setLayout(null);
@@ -327,6 +258,86 @@ public class AgregarComponentes extends JDialog {
         txtConexionesDiscosTM.setBounds(460, 10, 140, 25);
         panelTarjetaMadre.add(txtConexionesDiscosTM);
         txtConexionesDiscosTM.setColumns(10);
+                                                                                                                        
+                                                                                                                        JLabel lblNewLabel = new JLabel("Nombre:");
+                                                                                                                        lblNewLabel.setBounds(10, 20, 69, 13);
+                                                                                                                        contentPanel.add(lblNewLabel);
+                                                                                                                        
+                                                                                                                        txtNombre = new JTextField();
+                                                                                                                        txtNombre.setColumns(10);
+                                                                                                                        txtNombre.setBounds(77, 14, 210, 25);
+                                                                                                                        contentPanel.add(txtNombre);
+                                                                                                                        
+                                                                                                                                panelMicroprocesador = new JPanel();
+                                                                                                                                panelMicroprocesador.setBounds(10, 173, 610, 60);
+                                                                                                                                contentPanel.add(panelMicroprocesador);
+                                                                                                                                panelMicroprocesador.setVisible(false);
+                                                                                                                                panelMicroprocesador.setLayout(null);
+                                                                                                                                
+                                                                                                                                        JLabel lblTipoConexionMicro = new JLabel("Tipo de Conexión:");
+                                                                                                                                        lblTipoConexionMicro.setBounds(10, 10, 120, 25);
+                                                                                                                                        panelMicroprocesador.add(lblTipoConexionMicro);
+                                                                                                                                        
+                                                                                                                                                txtTipoConexionMicro = new JTextField();
+                                                                                                                                                txtTipoConexionMicro.setBounds(140, 10, 100, 25);
+                                                                                                                                                panelMicroprocesador.add(txtTipoConexionMicro);
+                                                                                                                                                txtTipoConexionMicro.setColumns(10);
+                                                                                                                                                
+                                                                                                                                                        JLabel lblVelocidadMicro = new JLabel("Velocidad (GHz):");
+                                                                                                                                                        lblVelocidadMicro.setBounds(270, 10, 120, 25);
+                                                                                                                                                        panelMicroprocesador.add(lblVelocidadMicro);
+                                                                                                                                                        
+                                                                                                                                                                txtVelocidadMicro = new JTextField();
+                                                                                                                                                                txtVelocidadMicro.setBounds(400, 10, 100, 25);
+                                                                                                                                                                panelMicroprocesador.add(txtVelocidadMicro);
+                                                                                                                                                                txtVelocidadMicro.setColumns(10);
+                                                                                                                                                                
+                                                                                                                                                                        panelMemoriaRAM = new JPanel();
+                                                                                                                                                                        panelMemoriaRAM.setBounds(10, 243, 610, 60);
+                                                                                                                                                                        contentPanel.add(panelMemoriaRAM);
+                                                                                                                                                                        panelMemoriaRAM.setVisible(false);
+                                                                                                                                                                        panelMemoriaRAM.setLayout(null);
+                                                                                                                                                                        
+                                                                                                                                                                                JLabel lblCantidadMemoriaRAM = new JLabel("Cantidad de Memoria (GB):");
+                                                                                                                                                                                lblCantidadMemoriaRAM.setBounds(10, 10, 160, 25);
+                                                                                                                                                                                panelMemoriaRAM.add(lblCantidadMemoriaRAM);
+                                                                                                                                                                                
+                                                                                                                                                                                        txtCantidadMemoriaRAM = new JTextField();
+                                                                                                                                                                                        txtCantidadMemoriaRAM.setBounds(180, 10, 100, 25);
+                                                                                                                                                                                        panelMemoriaRAM.add(txtCantidadMemoriaRAM);
+                                                                                                                                                                                        txtCantidadMemoriaRAM.setColumns(10);
+                                                                                                                                                                                        
+                                                                                                                                                                                                JLabel lblTipoMemoriaRAM = new JLabel("Tipo de Memoria:");
+                                                                                                                                                                                                lblTipoMemoriaRAM.setBounds(300, 10, 100, 25);
+                                                                                                                                                                                                panelMemoriaRAM.add(lblTipoMemoriaRAM);
+                                                                                                                                                                                                
+                                                                                                                                                                                                        txtTipoMemoriaRAM = new JTextField();
+                                                                                                                                                                                                        txtTipoMemoriaRAM.setBounds(410, 10, 100, 25);
+                                                                                                                                                                                                        panelMemoriaRAM.add(txtTipoMemoriaRAM);
+                                                                                                                                                                                                        txtTipoMemoriaRAM.setColumns(10);
+                                                                                                                                                                                                        panelDiscoDuro = new JPanel();
+                                                                                                                                                                                                        panelDiscoDuro.setBounds(10, 313, 610, 60);
+                                                                                                                                                                                                        contentPanel.add(panelDiscoDuro);
+                                                                                                                                                                                                        panelDiscoDuro.setVisible(false);
+                                                                                                                                                                                                        panelDiscoDuro.setLayout(null);
+                                                                                                                                                                                                        
+                                                                                                                                                                                                                JLabel lblCapacidadDisco = new JLabel("Capacidad (GB):");
+                                                                                                                                                                                                                lblCapacidadDisco.setBounds(10, 10, 120, 25);
+                                                                                                                                                                                                                panelDiscoDuro.add(lblCapacidadDisco);
+                                                                                                                                                                                                                
+                                                                                                                                                                                                                        txtCapacidadDisco = new JTextField();
+                                                                                                                                                                                                                        txtCapacidadDisco.setBounds(140, 10, 100, 25);
+                                                                                                                                                                                                                        panelDiscoDuro.add(txtCapacidadDisco);
+                                                                                                                                                                                                                        txtCapacidadDisco.setColumns(10);
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                JLabel lblTipoConexionDisco = new JLabel("Tipo de Conexión:");
+                                                                                                                                                                                                                                lblTipoConexionDisco.setBounds(270, 10, 120, 25);
+                                                                                                                                                                                                                                panelDiscoDuro.add(lblTipoConexionDisco);
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        txtTipoConexionDisco = new JTextField();
+                                                                                                                                                                                                                                        txtTipoConexionDisco.setBounds(400, 10, 100, 25);
+                                                                                                                                                                                                                                        panelDiscoDuro.add(txtTipoConexionDisco);
+                                                                                                                                                                                                                                        txtTipoConexionDisco.setColumns(10);
         
         if (componente != null) {
             llenarCampos();
@@ -356,7 +367,7 @@ public class AgregarComponentes extends JDialog {
     }
 
     private boolean verificarCamposLlenos() {
-        if (txtmarca.getText().isEmpty() || txtmodelo.getText().isEmpty() || txtprecio.getText().isEmpty() || 
+        if ( txtNombre.getText().isEmpty() ||txtmarca.getText().isEmpty() || txtmodelo.getText().isEmpty() || txtprecio.getText().isEmpty() || 
             txtnumeroserie.getText().isEmpty() || spnTipo.getValue().equals("<Seleccionar>")) {
             return false;
         }
@@ -376,6 +387,7 @@ public class AgregarComponentes extends JDialog {
         }
     }
     private void llenarCampos() {
+    	txtNombre.setText(componente.getNombre());
         txtmarca.setText(componente.getMarca());
         txtmodelo.setText(componente.getModelo());
         txtprecio.setText(String.valueOf(componente.getPrecio()));

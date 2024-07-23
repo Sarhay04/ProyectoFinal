@@ -8,13 +8,15 @@ public class TarjetaMadre extends Componente {
 	    private String tipoMemoriaRAM;
 	    private ArrayList<String> conexionesDiscosDuros;
 
-	    public TarjetaMadre(String marca, String modelo, double precio, int cantidadDisponible, String numeroDeSerie,
-	                        String tipoConectorMicro, String tipoMemoriaRAM, ArrayList<String> conexionesDiscosDuros) {
-	        super(marca, modelo, precio, cantidadDisponible, numeroDeSerie);
-	        this.tipoConectorMicro = tipoConectorMicro;
-	        this.tipoMemoriaRAM = tipoMemoriaRAM;
-	        this.conexionesDiscosDuros = conexionesDiscosDuros;
-	    }
+	    public TarjetaMadre(String nombre, String marca, String modelo, double precio, int cantidadDisponible,
+				String numeroDeSerie, String tipoConectorMicro, String tipoMemoriaRAM,
+				ArrayList<String> conexionesDiscosDuros) {
+			super(nombre, marca, modelo, precio, cantidadDisponible, numeroDeSerie);
+			this.tipoConectorMicro = tipoConectorMicro;
+			this.tipoMemoriaRAM = tipoMemoriaRAM;
+			this.conexionesDiscosDuros = conexionesDiscosDuros;
+		}
+
 
 	    @Override
 	    public void mostrarInformacion() {

@@ -116,6 +116,17 @@ public class Principal {
         });
         mnNewMenu.add(mntmNewMenuItem);
         
+        JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado de Ventas");
+        mntmNewMenuItem_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ListarVentas vta = new ListarVentas();
+        		vta.setModal(true);
+        		vta.setLocationRelativeTo(null);
+        		vta.setVisible(true);
+        	}
+        });
+        mnNewMenu.add(mntmNewMenuItem_1);
+        
         frame.validate();
     }
 }
