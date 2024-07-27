@@ -21,6 +21,7 @@ import logico.MemoriaRAM;
 import logico.Microprocesador;
 import logico.TarjetaMadre;
 import logico.Tienda;
+import logico.User;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -34,15 +35,13 @@ public class ListarComponentes extends JDialog {
     private JButton btnEliminar;
     private JButton cancelButton;
     private Componente componenteSeleccionado;
-    private boolean Mode;
+    private boolean mode;
+    private User user;
 
-    /**
-     * Create the dialog.
-     */
-    
-    public ListarComponentes(boolean mode) {
-    	
-    	Mode = mode;
+    public ListarComponentes(User user, boolean mode) {
+        this.user = user;
+        this.mode = mode;
+        
         setTitle("Listar Componentes");
         setBounds(100, 100, 831, 532);
         getContentPane().setLayout(new BorderLayout());
@@ -61,17 +60,16 @@ public class ListarComponentes extends JDialog {
 
         table = new JTable();
         table.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		
-        		 int index = table.getSelectedRow();
-                 if (index >= 0) {
-                     btnModificar.setEnabled(true);
-                     btnEliminar.setEnabled(true);
-                     String numeroDeSerie = table.getValueAt(index, 4).toString();
-                     componenteSeleccionado = Tienda.getInstance().buscarComponente(numeroDeSerie);
-                 }
-        	}
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int index = table.getSelectedRow();
+                if (index >= 0) {
+                    btnModificar.setEnabled(true);
+                    btnEliminar.setEnabled(true);
+                    String numeroDeSerie = table.getValueAt(index, 4).toString();
+                    componenteSeleccionado = Tienda.getInstance().buscarComponente(numeroDeSerie);
+                }
+            }
         });
         scrollPane.setViewportView(table);
 
@@ -95,43 +93,38 @@ public class ListarComponentes extends JDialog {
 
         btnModificar = new JButton("Modificar");
         btnModificar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		if (componenteSeleccionado != null) {
+            public void actionPerformed(ActionEvent arg0) {
+                if (componenteSeleccionado != null) {
                     AgregarComponentes modificar = new AgregarComponentes(componenteSeleccionado);
                     modificar.setModal(true);
                     modificar.setVisible(true);
                     ListarComponentesporTipo();
                 }
-        		
-        	}
+            }
         });
         btnModificar.setEnabled(false);
         btnModificar.setActionCommand("OK");
         buttonPane.add(btnModificar);
         getRootPane().setDefaultButton(btnModificar);
 
-        btnEliminar = new JButton("Eliminar");
+        btnEliminar = new JButton(mode ? "Añadir" : "Eliminar");
         btnEliminar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		 if(Mode)
-        		 {
-        			 RealizarVenta.getProducto(componenteSeleccionado);
-        			 return;
-        		 }
-        		 if (componenteSeleccionado != null) {
-                     int option = JOptionPane.showConfirmDialog(null,
-                             "¿Estás seguro(a) que desea eliminar el componente con número de serie: "
-                                     + componenteSeleccionado.getNumeroDeSerie() + "?",
-                             "Confirmación", JOptionPane.OK_CANCEL_OPTION);
-                     if (option == JOptionPane.OK_OPTION) {
-                         Tienda.getInstance().eliminarComponente(componenteSeleccionado.getNumeroDeSerie());
-                         btnEliminar.setEnabled(false);
-                         btnModificar.setEnabled(false);
-                         ListarComponentesporTipo();
-                     }
-                 }
-        		
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (mode) {
+                    RealizarVenta.getProducto(componenteSeleccionado);
+                } else if (componenteSeleccionado != null) {
+                    int option = JOptionPane.showConfirmDialog(null,
+                            "¿Estás seguro(a) que desea eliminar el componente con número de serie: "
+                                    + componenteSeleccionado.getNumeroDeSerie() + "?",
+                            "Confirmación", JOptionPane.OK_CANCEL_OPTION);
+                    if (option == JOptionPane.OK_OPTION) {
+                        Tienda.getInstance().eliminarComponente(componenteSeleccionado.getNumeroDeSerie());
+                        btnEliminar.setEnabled(false);
+                        btnModificar.setEnabled(false);
+                        ListarComponentesporTipo();
+                    }
+                }
+            }
         });
         btnEliminar.setEnabled(false);
         buttonPane.add(btnEliminar);
@@ -146,17 +139,26 @@ public class ListarComponentes extends JDialog {
         buttonPane.add(cancelButton);
 
         ListarComponentesporTipo();
-        if(mode)
-        {
-            ListMode();
-        }
-
+        configureButtonsByUserType();
     }
-    
-    private void ListMode()
-    {
-    	btnModificar.setVisible(false);
-    	btnEliminar.setText("Añadir");
+
+    private void configureButtonsByUserType() {
+        if (user != null) {
+            switch (user.getTipo()) {
+                case "Basico":
+                    btnModificar.setVisible(false);
+                    btnEliminar.setVisible(mode);
+                    break;
+                case "Privilegiado":
+                    btnModificar.setVisible(true);
+                    btnEliminar.setVisible(mode);
+                    break;
+                case "Administrador":
+                    btnModificar.setVisible(true);
+                    btnEliminar.setVisible(true);
+                    break;
+            }
+        }
     }
 
     private void ListarComponentesporTipo() {

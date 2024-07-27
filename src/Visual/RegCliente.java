@@ -36,23 +36,6 @@ public class RegCliente extends JDialog {
 	private JButton okButton;
 	private JButton btnNewButton;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		Cliente clt = new Cliente("402-1171231-2","Pepe","Mi casa","809-902-0977");
-		try {
-			RegCliente dialog = new RegCliente(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public RegCliente(Cliente miCliente) {
 		setTitle("Cliente");
 		setBounds(100, 100, 461, 342);

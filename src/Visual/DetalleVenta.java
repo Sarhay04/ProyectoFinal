@@ -21,22 +21,6 @@ public class DetalleVenta extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextArea textArea;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			DetalleVenta dialog = new DetalleVenta(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public DetalleVenta(Venta vta) {
 		setTitle("Venta");
 		setBounds(100, 100, 504, 600);

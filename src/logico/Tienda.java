@@ -82,16 +82,14 @@ private static final long serialVersionUID = 1L;
     	return null;
     }
     
-    public boolean confirmLoginInfo(String usuario, String password) {
-		boolean login = false;
-		for (User user : misUsuarios) {
-			if (user.getUsuario().equals(usuario) && user.getPassword().equals(password)) {
-				loginUser = user;
-				login = true;
-			}
-		}
-		return login;
-	}
+    public User confirmLoginInfo(String username, String password) {
+        for (User user : misUsuarios) {
+            if (user.getUsuario().equals(username) && user.getPassword().equals(password)) {
+                return user; 
+            }
+        }
+        return null; 
+    }
     
     public void agregarVenta(Venta vta)
     {

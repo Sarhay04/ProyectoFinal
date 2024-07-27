@@ -2,7 +2,6 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,6 +15,7 @@ import logico.Componente;
 import logico.Tienda;
 import logico.Venta;
 import logico.VentaComponente;
+import logico.User;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.JFormattedTextField;
@@ -60,24 +60,13 @@ public class RealizarVenta extends JDialog {
 	private int index;
 	private static double total = 0;
 	private static int prodt = 0;
+    private User user;
+    private boolean mode;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RealizarVenta dialog = new RealizarVenta();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public RealizarVenta() {
+	public RealizarVenta(User user, boolean mode) {
+        this.user = user;
+        this.mode = mode;
+        
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -235,7 +224,7 @@ public class RealizarVenta extends JDialog {
 		JButton btnAñadir = new JButton("Añadir");
 		btnAñadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarComponentes lC = new ListarComponentes(true);
+				ListarComponentes lC = new ListarComponentes(user, true);
 				lC.setModal(true);
 				lC.setLocationRelativeTo(null);
 				lC.setVisible(true);
@@ -397,7 +386,7 @@ public class RealizarVenta extends JDialog {
 	private static void cargarProductos() {
 
 		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Nuumero De Serie");
+		model.addColumn("Numero De Serie");
 		model.addColumn("Marca");
 		model.addColumn("Modelo");
 		model.addColumn("Precio");
