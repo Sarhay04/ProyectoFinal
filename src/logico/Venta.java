@@ -79,6 +79,14 @@ public class Venta implements Serializable {
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
+
+	public static int getCodigoVenta() {
+		return codigoVenta;
+	}
+
+	public static void setCodigoVenta(int codigoVenta) {
+		Venta.codigoVenta = codigoVenta;
+	}
 	
 
 }

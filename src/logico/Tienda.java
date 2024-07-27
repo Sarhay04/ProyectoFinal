@@ -9,7 +9,10 @@ private static final long serialVersionUID = 1L;
 	private ArrayList<Componente> inventario;
     private ArrayList<Cliente> misClientes;
     private ArrayList<Venta> misVentas;
+    private ArrayList<User> misUsuarios;
 	public static Tienda tienda;
+	private static User loginUser;
+
 
     
     public static Tienda getInstance() {
@@ -25,6 +28,7 @@ private static final long serialVersionUID = 1L;
 		this.inventario = new ArrayList<Componente>();
 		this.misClientes = new ArrayList<Cliente>();
 		this.misVentas = new ArrayList<Venta>();
+		this.misUsuarios = new ArrayList<User>();
 	}
 
     public void agregarComponente(Componente componente) {
@@ -78,6 +82,17 @@ private static final long serialVersionUID = 1L;
     	return null;
     }
     
+    public boolean confirmLoginInfo(String usuario, String password) {
+		boolean login = false;
+		for (User user : misUsuarios) {
+			if (user.getUsuario().equals(usuario) && user.getPassword().equals(password)) {
+				loginUser = user;
+				login = true;
+			}
+		}
+		return login;
+	}
+    
     public void agregarVenta(Venta vta)
     {
     	misVentas.add(vta);
@@ -95,6 +110,12 @@ private static final long serialVersionUID = 1L;
     	return;
     }
     
+    public void agregarUsuario(User usuario)
+    {
+    	misUsuarios.add(usuario);
+    	return;
+    }
+    
     
     public Cliente getClienteByCedula(String Cedula)
     {
@@ -107,6 +128,41 @@ private static final long serialVersionUID = 1L;
     	}
     	return null;
     }
+    
+    public User getUsuariobyTipo(String string) {
+
+		User temp = null;
+		boolean encontrado = false;
+		int ind = 0;
+
+		while (!encontrado && ind < misUsuarios.size()) {
+			if (misUsuarios.get(ind).getUsuario().equalsIgnoreCase(string)) {
+				temp = misUsuarios.get(ind);
+				encontrado = true;
+			}
+			ind++;
+		}
+		return temp;
+	}
+    
+    public void EliminarUser(User user) {
+		misUsuarios.remove(user);
+	}
+    
+    public ArrayList<User> getUsuariosbyTipo(String tipoSeleccionado) {
+		ArrayList<User> usuariosPorTipo = new ArrayList<>();
+
+		for (User user : misUsuarios) {
+			if (user.getTipo().equals(tipoSeleccionado)) {
+				usuariosPorTipo.add(user);
+			}
+			if (tipoSeleccionado.equalsIgnoreCase("<Todos>")) {
+				usuariosPorTipo = getMisUsuarios();
+			}
+		}
+
+		return usuariosPorTipo;
+	}
     
     public boolean checkClienteDelete(Cliente clt)
     {
@@ -149,6 +205,26 @@ private static final long serialVersionUID = 1L;
 
 	public void setInventario(ArrayList<Componente> inventario) {
 		this.inventario = inventario;
+	}
+
+	public ArrayList<User> getMisUsuarios() {
+		return misUsuarios;
+	}
+
+	public void setMisUsuarios(ArrayList<User> misUsuarios) {
+		this.misUsuarios = misUsuarios;
+	}
+
+	public static User getLoginUser() {
+		return loginUser;
+	}
+
+	public static Tienda getTienda() {
+		return tienda;
+	}
+
+	public static void setTienda(Tienda tienda) {
+		Tienda.tienda = tienda;
 	}
     
 

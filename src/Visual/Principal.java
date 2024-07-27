@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import logico.Tienda;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -135,6 +136,40 @@ public class Principal {
         	}
         });
         mnNewMenu.add(mntmNewMenuItem_1);
+        
+        JMenu MenuAdministracion = new JMenu("Administracion");
+        menuBar.add(MenuAdministracion);
+        
+        JMenu mnNewMenu_6 = new JMenu("Usuarios");
+        MenuAdministracion.add(mnNewMenu_6);
+        
+        JMenuItem mntmNewMenuItem_7 = new JMenuItem("Registrar Usuarios");
+        mntmNewMenuItem_7.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RegistrarUsuario regusuario = new RegistrarUsuario(null);
+				regusuario.setModal(true);
+				regusuario.setLocationRelativeTo(null);
+				regusuario.setVisible(true);
+        	}
+        });
+        mnNewMenu_6.add(mntmNewMenuItem_7);
+        
+        JMenuItem mntmNewMenuItem_3 = new JMenuItem("Listar Usuario");
+        mntmNewMenuItem_3.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ListarUsuarios listusuario = new ListarUsuarios();
+				listusuario.setModal(true);
+				listusuario.setLocationRelativeTo(null);
+				listusuario.setVisible(true);
+        	}
+        });
+        mnNewMenu_6.add(mntmNewMenuItem_3);
+        
+        JMenu mnNewMenu_7 = new JMenu("Respaldo");
+        MenuAdministracion.add(mnNewMenu_7);
+        
+        JMenuItem mntmNewMenuItem_5 = new JMenuItem("Realizar Backup");
+        mnNewMenu_7.add(mntmNewMenuItem_5);
         
         frame.validate();
     }
