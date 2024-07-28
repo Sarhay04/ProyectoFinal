@@ -5,8 +5,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import logico.Client;
+import logico.Cliente;
 import logico.Tienda;
 import logico.User;
 import java.awt.event.WindowAdapter;
@@ -130,6 +135,15 @@ public class Principal extends JFrame {
         MenuAdministracion.add(mnNewMenu_7);
         
         JMenuItem mntmNewMenuItem_5 = new JMenuItem("Realizar Backup");
+        mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int option = JOptionPane.showConfirmDialog(null, "Estas seguro(a) que desea hacer el respaldo ",
+						"Confirmacion", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {
+					Client.enviarCopiaRespaldo();
+				}
+			}
+		});
         mnNewMenu_7.add(mntmNewMenuItem_5);
 
         JMenuItem AgregarComponentes = new JMenuItem("Agregar Componentes");
