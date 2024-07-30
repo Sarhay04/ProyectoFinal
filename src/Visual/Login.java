@@ -169,6 +169,7 @@ public class Login extends JFrame {
         panel.add(btnNewButton);
 
         loadCodes();
+
     }
 
     public static User getLoginUser() {
@@ -178,4 +179,5 @@ public class Login extends JFrame {
     public void loadCodes() {
         Venta.setCodigoVenta(Tienda.getInstance().getMisVentas().size() + 1);
     }
+    
 }
