@@ -2,6 +2,8 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -72,6 +74,9 @@ public class ListarComponentes extends JDialog {
             }
         });
         scrollPane.setViewportView(table);
+        Font newFont = new Font("Tahoma", Font.PLAIN, 18);
+        table.setFont(newFont);
+        table.setRowHeight(25);
 
         JLabel lblTipo = new JLabel("Tipo:");
         lblTipo.setBounds(12, 27, 56, 16);

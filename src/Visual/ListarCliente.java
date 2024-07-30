@@ -2,6 +2,7 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -67,6 +68,9 @@ public class ListarCliente extends JDialog {
                 }
             }
         });
+        Font newFont = new Font("Tahoma", Font.PLAIN, 18);
+        table.setFont(newFont);
+        table.setRowHeight(25);
         scrollPane.setViewportView(table);
         {
             JPanel buttonPane = new JPanel();
